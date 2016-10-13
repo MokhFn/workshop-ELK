@@ -3,13 +3,17 @@
 
 ### Introduction
 Orange a décidé de diversifier sa boutique en vendant du matériel informatique. Pc, imprimantes, clavier, etc. sont désormais en vente sur la boutique Orange. Cette nouvelle offre a fait un carton en janvier, cependant après la dernière mise à jour du portail de nombreux problèmes sont remontés par l'exploitation et le marketing se plaint d'une forte baisse des ventes. 
+
 Le marketing a demandé qu'un super développeur vienne voir si quelque chose va mal et comme tu étais en vacances en Picardie pendant la réunion du département, tu as été désigné volontaire :-).
+
 Ne sachant pas par où commencer, tu te connectes en ssh au serveur Apache de la boutique et tu télécharges tous les fichiers de log depuis juin et tu décides de les charger dans Elasticsearch pour voir ce qui ne va pas.
 Ton travail peut commencer jeune padawan !
 
 ### Découverte des outils
 La première chose à faire est de charger les données dans Elasticsearch, pour ça les développeurs de chez Elastic (la société qui édite le moteur de recherche open source) a développé un outil assez pratique pour lire dans des fichiers et écrire les données dans Elasticsearch. 
+
 Tu décides de t'entrainer sur un petit fichier de logs access_log_1.log
+
 Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions pour commencer...
 
 -----
@@ -19,21 +23,27 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 
 >Hello,
 >Oui jai déjà utilisé la stack ELK (Elasticsearch, Logstash et Kibana) c'est plutôt simple à mettre en place et je t'ai fait un petit package pour les utiliser directement sur ta machine (C:\Program Files\Elastic).
+>
 >Pour commencer tu devras démarrer elasticsearch et kibana. C'est simple, ouvre deux consoles et lance les commandes suivantes :
+>
 >Elasticsearch 
 ```
 // TODO: elasticsearch start command
 ```
 >Pour vérifier que la commande a bien marché, ouvre ton firefox et va sur l'adresse http://localhost:9200/
+
 >Si tu vois quelque chose c'est que je ne dis pas n'importe quoi !
+
 >Kibana 
 ```
 //TODO: Kibana start command
 ```
 >Pour vérifier que la commande a bien marché, ouvre ton firefox et va sur l'adresse http://localhost:5601/
+
 >Tu verras c'est plus joli que l'interface d'Elasticsearch mais pour l'instant il n'y a rien dedans à toi d'y mettre des données !
 >
 >Il faudrait aussi que tu installes sense, ça te permettra de requêter facilement elasticsearch.
+
 >```
 >bin\kibana plugin --install elastic/sense
 >```
@@ -61,9 +71,11 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 >```
 >
 >Si je me souviens bien, il y a un pattern grok qui permet de lire directement des logs apache (ben oui, les logs apache, c'est toujours formaté pareil). Tu devrais trouver plus d'info dans :
+
 >* la doc elastic : https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html
 >* la liste des patterns : https://github.com/elastic/logstash/blob/v1.4.2/patterns/grok-patterns
-> >
+>
+
 >Pour lancer la lecture de tes logs, démarre logstash avec la commande suivante :
 >```
 >//TODO logstash command logstash -f logstash.conf
@@ -71,13 +83,19 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 >
 >Ensuite tu pourras aller voir tes données dans kibana, retourne dans ton navigateur http://localhost:5601.
 >Il va te demander de configurer un pattern d'index.
+
 >//TODO insérer capture acceuil Kibana
+
 >Tu laisses le index name à logstash-* c'est le nom par défaut qui est donné à un index produit par logstash (un index est l'équivalent d'une table dans une base de données classique). Tu dois juste choisir le champ qui contient les dates de tes données et tu es prêt à commencer à visualiser les données. 
 >
 >Pleins de poutous et bon courage !
+
 >Jean 
+
 >PS : Si les données injectées ne sont pas daté du mois de Juin c'est que tu dois changer quelque chose dans le logstash.conf je te laisse demander à Google :-)  
+
 >PS2 : Si tu veux juste voir à quoi vont ressembler les données sans forcément les injecter dans Elasticsearch tu peux décommenter la ligne stdout dans le fichier de conf et commenter les lignes elasticsearch.
+
 >PS3 : Entre 2 injections, pour tout remettre à 0, tu peux utiliser sense pour faire un DELETE sur logstash-, mets aussi à jour l'index kibana
 
 
@@ -112,7 +130,9 @@ Tu montres tes premiers avancements à ton chef et il te renvoie une liste de ch
 >  	}
 >```
 >Bravo pour ton travail tiens-moi au courant de ton avancement.
+
 >Cordialement,
+
 >Jean Demandebocoutro
 
 ### Manipulons Kibana
@@ -124,15 +144,19 @@ Une fois tout ça fini tu pensais pouvoir te détendre en lisant tes mails et tu
 >Hello,
 >
 >Jean Demandebocoutro m'a dit que c'est toi qui bosse sur l'amélioration de notre boutique. Merci pour ton dévouement !
+
 >On a eu une réunion très intéressante aujourd'hui avec le reste de l'équipe marketing et Raymond Telémachine de l'exploit et nous avons identifié les KPI qui seront les plus intéressants à monitorer sur la boutique.
+
 >Apparemment ton outils Kibana nous permettra de voir des graphes filtrable avec tout ça 
 >* la carte avec la répartition des clients
 >* la liste des API appelées
 >* les 40 mots clés les plus répandus
 >* le détail d'une recherche pour qu'on puisse faire du qualitatif
+
 >Si tu peux nous mettre tout ça dans un dashboard ce serait sympa :-)
 
 >Encore merci,
+
 >Jean Vendétonne
 
 
@@ -147,8 +171,7 @@ Vient le moment des questions...
 
 ### Analyse plein texte
 
-Dépité tu repars pensant ajouter des filtres dans logstash pour enlever tous ces mots lors de l'injection des données tu penses pouvoir t'en sortir mais bon ça à pas l'air simple... et puis dans le bus en rentrant chez toi tu entends une discussion de deux chercheurs du moteur de recherche de Google qui discutent de "mapping" avec des "analyzers", "tokenizers" et de "token filter" tu te dis que tu es déjà tombé sur ce genre de choses dans la doc elasticsearch notamment dans le livre Elasticsearch: The definitive guide section "Dealing with human language" https://www.elastic.co/guide/en/elasticsearch/guide/current/languages.html#languages
-et la partie analysis de la doc https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis.html 
+Dépité tu repars pensant ajouter des filtres dans logstash pour enlever tous ces mots lors de l'injection des données tu penses pouvoir t'en sortir mais bon ça à pas l'air simple... et puis dans le bus en rentrant chez toi tu entends une discussion de deux chercheurs du moteur de recherche de Google qui discutent de "mapping" avec des "analyzers", "tokenizers" et de "token filter" tu te dis que tu es déjà tombé sur ce genre de choses dans la doc elasticsearch notamment dans le livre Elasticsearch: The definitive guide section "Dealing with human language" https://www.elastic.co/guide/en/elasticsearch/guide/current/languages.html#languages et la partie analysis de la doc https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis.html 
 
 Tu te dis que la première chose à faire c'est de regarder le mapping actuel de tes données. Pour celà il suffit d'ouvrir sense http://localhost:5601/app/sense et de faire la requête suivante :
 ```
@@ -175,14 +198,21 @@ POST logstash-2016.10.19/logs/_mapping
 ```
 
 Rah ! Elasticsearch n'aime pas qu'on modifie le mapping à chaud... Ce n'est pas un bug c'est "by design".
+
 ### Un peu de théorie
+
 Pour comprendre ce que c'est le mapping il faut comprendre rapidement comment fonctionne un moteur de recherche.
+
 Un moteur de recherche fonctionne comme un glossaire dans un livre, à chaque fois qu'un mot apparait dans un champ du moteur celui-ci stocke le mot avec une référence vers le document qui contient ce mot.
+
 Prenons un exemple : voici trois documents que nous fournissons à un moteur de recherche
+```
 doc1: bonjour comment ça va 
 doc2: bonjour ça va bien et toi
 doc3: bien merci
+```
 Le moteur de recherche en construira le tableau suivant :
+```
 mot       | documents
 ________________________
 bonjour   | doc1, doc2
@@ -193,9 +223,12 @@ bien      | doc2, doc3
 et        | doc2
 toi       | doc2
 merci     | doc3
+```
 
 ainsi lorsque l'on cherche le mot "bonjour" le moteur de recherche n'a pas à parcourir tous les documents, il parcour uniquement la liste de mot qu'il connait et une fois qu'il a trouvé le mot "bonjour" il retourne la liste de documents de la colonne documents. (n'hésite pas à en discuter avec les animateurs si tu le souhaites)
+
 ### Retour à la réalité 
+
 Il faut donc à chaque fois que l'on souhaite modifier le mapping il faut dans sense :
 * supprimer l'index Elasticsearch
 * créer l'index 
