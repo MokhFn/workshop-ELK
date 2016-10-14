@@ -87,7 +87,8 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 >Il va te demander de configurer un pattern d'index.
 
 >Tu laisses le index name à logstash-* c'est le nom par défaut qui est donné à un index produit par logstash (un index est l'équivalent d'une table dans une base de données classique). Tu dois juste choisir le champ qui contient les dates de tes données et tu es prêt à commencer à visualiser les données. 
->
+> Attention Kibana par défaut affiche uniquement les données des 15 dernières minutes, tu peux modifier celà dans le coin superieur droit de l'interface.
+
 >Pleins de poutous et bon courage !
 
 >Jean 
@@ -96,8 +97,10 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 
 >PS2 : Si tu veux juste voir à quoi vont ressembler les données sans forcément les injecter dans Elasticsearch tu peux décommenter la ligne stdout dans le fichier de conf et commenter les lignes elasticsearch.
 
->PS3 : Entre 2 injections, pour tout remettre à 0, tu peux utiliser sense pour faire un DELETE sur logstash-, mets aussi à jour l'index kibana
-
+>PS3 : Entre 2 injections, pour tout remettre à 0, tu peux utiliser sense pour supprimer l'index, mets aussi à jour l'index kibana dans les settings.
+```
+DELETE logstash-*
+```
 
 Tu as réussi à arriver jusque là, bravo ! Tu deviendras bientôt un pro de la stack ELK. En avant !
 
