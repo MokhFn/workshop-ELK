@@ -12,7 +12,7 @@ Ton travail peut commencer jeune padawan !
 ### Découverte des outils
 La première chose à faire est de charger les données dans Elasticsearch, pour ça les développeurs de chez Elastic (la société qui édite le moteur de recherche open source) a développé un outil assez pratique pour lire dans des fichiers et écrire les données dans Elasticsearch. 
 
-Tu décides de t'entrainer sur un petit fichier de logs access_log_1.log
+Tu décides de t'entrainer sur un petit fichier de logs access_log_1.log (tous les fichiers de logs se trouvent dans le dossier data de ce répertoire).
 
 Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions pour commencer...
 
