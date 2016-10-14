@@ -9,6 +9,8 @@ Le marketing a demandé qu'un super développeur vienne voir si quelque chose va
 Ne sachant pas par où commencer, tu te connectes en ssh au serveur Apache de la boutique et tu télécharges tous les fichiers de log depuis juin et tu décides de les charger dans Elasticsearch pour voir ce qui ne va pas.
 Ton travail peut commencer jeune padawan !
 
+(Les fichiers sont dans le répertoire data de ce projet Github pense à télécharger cette archive).
+
 ### Découverte des outils
 La première chose à faire est de charger les données dans Elasticsearch, pour ça les développeurs de chez Elastic (la société qui édite le moteur de recherche open source) a développé un outil assez pratique pour lire dans des fichiers et écrire les données dans Elasticsearch. 
 
@@ -90,7 +92,7 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 
 >Jean 
 
->PS : Si les données injectées ne sont pas daté du mois de Juin c'est que tu dois changer quelque chose dans le logstash.conf je te laisse demander à Google :-)  
+>PS : Si les données injectées ne sont pas datées du mois de Juin c'est que tu dois changer quelque chose dans le logstash.conf je te laisse demander à Google :-)  
 
 >PS2 : Si tu veux juste voir à quoi vont ressembler les données sans forcément les injecter dans Elasticsearch tu peux décommenter la ligne stdout dans le fichier de conf et commenter les lignes elasticsearch.
 
