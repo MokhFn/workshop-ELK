@@ -9,7 +9,7 @@ Le marketing a demandé qu'un super développeur vienne voir si quelque chose va
 Ne sachant pas par où commencer, tu te connectes en ssh au serveur Apache de la boutique et tu télécharges tous les fichiers de log depuis juin et tu décides de les charger dans Elasticsearch pour voir ce qui ne va pas.
 Ton travail peut commencer jeune padawan !
 
-(Les fichiers sont dans le répertoire data de ce projet Github pense à télécharger cette archive).
+(Les fichiers sont disponibles sous C:\Data).
 
 ### Découverte des outils
 La première chose à faire est de charger les données dans Elasticsearch, pour ça les développeurs de chez Elastic (la société qui édite le moteur de recherche open source) a développé un outil assez pratique pour lire dans des fichiers et écrire les données dans Elasticsearch. 
@@ -30,7 +30,7 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 >
 >Elasticsearch 
 ```
-// TODO: .\bin\elasticsearch 
+bin\elasticsearch 
 ```
 >Pour vérifier que la commande a bien marché, ouvre ton firefox et va sur l'adresse http://localhost:9200/
 
@@ -38,24 +38,19 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 
 >Kibana 
 ```
-//TODO: .\bin\kibana 
+bin\kibana 
 ```
 >Pour vérifier que la commande a bien marché, ouvre ton firefox et va sur l'adresse http://localhost:5601/
 
 >Tu verras c'est plus joli que l'interface d'Elasticsearch mais pour l'instant il n'y a rien dedans à toi d'y mettre des données !
 >
->Il faudrait aussi que tu installes sense, ça te permettra de requêter facilement elasticsearch.
-
->```
->bin\kibana plugin --install elastic/sense
->```
->Pour vérifier que la commande a bien marché, ouvre ton firefox et va sur l'adresse http://localhost:5601/app/sense
+>sense doit être installer, ça te permettra de requêter facilement elasticsearch. Il est accessible à l'adresse : http://localhost:5601/app/sense 
 >
->Une fois que ça s'est fait tu dois créer un fichier de configuration pour logstash, en général on l'appel logstash.conf et tu mets dedans quelque chose qui ressemble à ça :
+>Une fois que ça s'est fait tu dois créer un fichier de configuration pour logstash (dans C:\Program Files\Elastic\logstash-all-plugins-2.4.0 par exemple), en général on l'appel logstash.conf et tu mets dedans quelque chose qui ressemble à ça :
 >```
 >input {
 >    file {
->        path => "/home/txbj8305/Documents/devdays/ELK/access_log_1.log" #TODO mettre le path vers ton fichier
+>        path => "C:/Data/access_log_0.log"
 >        start_position => beginning
 >        sincedb_path => "NUL"
 >        ignore_older => 0
@@ -65,9 +60,9 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 >    # ici on peut mettre des filtres pour parser les logs tout comme on veut
 >}
 >output {
->    #elasticsearch {
->    #    hosts => [ "localhost:9200" ]
->    #}
+>   elasticsearch {
+>       hosts => [ "localhost:9200" ]
+>   }
 >	stdout { codec => rubydebug }
 >}
 >```
@@ -80,13 +75,13 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 
 >Pour lancer la lecture de tes logs, démarre logstash avec la commande suivante :
 >```
->//TODO bin\logstash -f logstash.conf
+>bin\logstash -f logstash.conf
 >```
 >
 >Ensuite tu pourras aller voir tes données dans kibana, retourne dans ton navigateur http://localhost:5601.
 >Il va te demander de configurer un pattern d'index.
 
->Tu laisses le index name à logstash-* c'est le nom par défaut qui est donné à un index produit par logstash (un index est l'équivalent d'une table dans une base de données classique). Tu dois juste choisir le champ qui contient les dates de tes données et tu es prêt à commencer à visualiser les données. 
+>Tu laisses le index name à logstash-* c'est le nom par défaut qui est donné à un index produit par logstash (un index est l'équivalent d'une table dans une base de données classique). Tu dois juste choisir le champ qui contient les dates de tes données et tu es prêt à commencer à visualiser les données (tu peux te rendre sur Discover).
 > Attention Kibana par défaut affiche uniquement les données des 15 dernières minutes, tu peux modifier celà dans le coin superieur droit de l'interface.
 
 >Pleins de poutous et bon courage !
@@ -95,14 +90,14 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 
 >PS : Si les données injectées ne sont pas datées du mois de Juin c'est que tu dois changer quelque chose dans le logstash.conf je te laisse demander à Google :-)  
 
->PS2 : Si tu veux juste voir à quoi vont ressembler les données sans forcément les injecter dans Elasticsearch tu peux décommenter la ligne stdout dans le fichier de conf et commenter les lignes elasticsearch.
+>PS2 : Si tu veux juste voir à quoi vont ressembler les données sans forcément les injecter dans Elasticsearch tu peux commenter les lignes elasticsearch.
 
 >PS3 : Entre 2 injections, pour tout remettre à 0, tu peux utiliser sense pour supprimer l'index, mets aussi à jour l'index kibana dans les settings.
 ```
 DELETE logstash-*
 ```
 
-Tu as réussi à arriver jusque là, bravo ! Tu deviendras bientôt un pro de la stack ELK. En avant !
+Tu as réussi à arriver jusque là, bravo ! Tu deviendras bientôt un pro de la stack ELK. En avant ! Ah zut, un nouveau mail...
 
 -----
 >De : Jean Bouffedélog
@@ -112,7 +107,8 @@ Tu as réussi à arriver jusque là, bravo ! Tu deviendras bientôt un pro de la
 >J'oubliai ! Tu vas pouvoir créer des viz dans kibana, du genre :
 >* Répartition des verbes HTTP appelés
 >* La répartition des codes HTTP (200, 404, 500...) dans le temps
->* Liste des url appelées
+>* La liste des url appelées
+>Tu peux regrouper ces viz dans un dashboard.
 
 ### Configuration logstash
 Tu montres tes premiers avancements à ton chef et il te renvoie une liste de choses à faire pour mieux exploiter les logs 
