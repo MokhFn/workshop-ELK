@@ -53,20 +53,20 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 >```
 >input {
 >    file {
->        path => "/home/txbj8305/Documents/devdays/ELK/access_log_1.log" //TODO mettre le path vers ton fichier
+>        path => "/home/txbj8305/Documents/devdays/ELK/access_log_1.log" #TODO mettre le path vers ton fichier
 >        start_position => beginning
 >        sincedb_path => "NUL"
 >        ignore_older => 0
 >    }
 >}
 >filter {
->    // ici on peut mettre des filtres pour parser les logs tout comme on veut
+>    # ici on peut mettre des filtres pour parser les logs tout comme on veut
 >}
 >output {
->    elasticsearch {
->        hosts => [ "localhost:9200" ]
->    }
->	#stdout { codec => rubydebug }
+>    #elasticsearch {
+>    #    hosts => [ "localhost:9200" ]
+>    #}
+>	stdout { codec => rubydebug }
 >}
 >```
 >
