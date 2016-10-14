@@ -28,7 +28,7 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 >
 >Elasticsearch 
 ```
-// TODO: elasticsearch start command
+// TODO: .\bin\elasticsearch 
 ```
 >Pour vérifier que la commande a bien marché, ouvre ton firefox et va sur l'adresse http://localhost:9200/
 
@@ -36,7 +36,7 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 
 >Kibana 
 ```
-//TODO: Kibana start command
+//TODO: .\bin\kibana 
 ```
 >Pour vérifier que la commande a bien marché, ouvre ton firefox et va sur l'adresse http://localhost:5601/
 
@@ -78,13 +78,11 @@ Heureusement ton collègue Jean Bouffedélog t'a donné quelques instructions po
 
 >Pour lancer la lecture de tes logs, démarre logstash avec la commande suivante :
 >```
->//TODO logstash command logstash -f logstash.conf
+>//TODO bin\logstash -f logstash.conf
 >```
 >
 >Ensuite tu pourras aller voir tes données dans kibana, retourne dans ton navigateur http://localhost:5601.
 >Il va te demander de configurer un pattern d'index.
-
->//TODO insérer capture acceuil Kibana
 
 >Tu laisses le index name à logstash-* c'est le nom par défaut qui est donné à un index produit par logstash (un index est l'équivalent d'une table dans une base de données classique). Tu dois juste choisir le champ qui contient les dates de tes données et tu es prêt à commencer à visualiser les données. 
 >
@@ -261,7 +259,7 @@ PUT logstash-2016.10.19/
 
 * réindexer les données depuis logstash 
 ```
-//TODO commande logstash -f logstash.conf
+//TODO bin\logstash -f logstash.conf
 ```
 
 Tu peux déjà commencer à tester comment Elasticsearch indexe les données avec un analyzeur pour celà écrire dans sense : 
