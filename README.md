@@ -9,7 +9,7 @@ Le marketing a demandé qu'un super développeur vienne voir si quelque chose va
 Ne sachant pas par où commencer, tu te connectes en ssh au serveur Apache de la boutique et tu télécharges tous les fichiers de log depuis juin et tu décides de les charger dans Elasticsearch pour voir ce qui ne va pas.
 Ton travail peut commencer jeune padawan !
 
-(Les fichiers de données sont disponibles sous C:\Data).
+(Les fichiers de données sont disponibles sous C:\data).
 
 ### Découverte des outils
 La première chose à faire est de charger les données dans Elasticsearch, pour ça les développeurs de chez Elastic (la société qui édite le moteur de recherche open source) a développé un outil assez pratique pour lire dans des fichiers et écrire les données dans Elasticsearch. 
@@ -50,7 +50,7 @@ bin\kibana
 >```
 >input {
 >    file {
->        path => "C:/Data/access_log_0.log"
+>        path => "C:/data/access_log_0.log"
 >        start_position => beginning
 >        sincedb_path => "NUL"
 >        ignore_older => 0
@@ -108,6 +108,7 @@ Tu as réussi à arriver jusque là, bravo ! Tu deviendras bientôt un pro de la
 >* Répartition des verbes HTTP appelés
 >* La répartition des codes HTTP (200, 404, 500...) dans le temps
 >* La liste des url appelées
+>
 >Tu peux regrouper ces viz dans un dashboard.
 
 ### Configuration logstash
