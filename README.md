@@ -150,8 +150,9 @@ Une fois tout ça fini tu pensais pouvoir te détendre en lisant tes mails et tu
 >Apparemment ton outils Kibana nous permettra de voir des graphes filtrable avec tout ça 
 >* la carte avec la répartition des clients
 >* la liste des API appelées
+>* les réponses HTTP par API
 >* les 40 mots clés les plus répandus
->* le détail d'une recherche pour qu'on puisse faire du qualitatif
+>* le détail d'une recherche pour qu'on puisse faire du qualitatif (un tableau avec la date, le verbe HTTP, l'api, les paramètres, la réponse, le pays)
 
 >Si tu peux nous mettre tout ça dans un dashboard ce serait sympa :-)
 
