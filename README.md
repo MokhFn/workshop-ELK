@@ -125,9 +125,9 @@ Tu montres tes premiers avancements à ton chef et il te renvoie une liste de ch
 >* Séparer les verbes de l'API (/search, /products...) des paramètres (?q=ordinateur tout-en-un)
 >* Ajoute ce filtre Je t'expliquerai plus tard pourquoi
 >```
->grok {
->     match => { "request" => "%{URIPATH:api}(?:%{URIPARAM:uriparam})?" }
->}
+>    mutate {
+>       split => {"[query_params][q]" => "%20"}
+>   }
 >```
 >Bravo pour ton travail tiens-moi au courant de ton avancement.
 
