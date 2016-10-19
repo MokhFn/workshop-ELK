@@ -60,9 +60,9 @@ bin\kibana
 >    # ici on peut mettre des filtres pour parser les logs tout comme on veut
 >}
 >output {
->   elasticsearch {
->       hosts => [ "localhost:9200" ]
->   }
+>#   elasticsearch {
+>#       hosts => [ "localhost:9200" ]
+>#   }
 >	stdout { codec => rubydebug }
 >}
 >```
@@ -125,9 +125,9 @@ Tu montres tes premiers avancements à ton chef et il te renvoie une liste de ch
 >* Séparer les verbes de l'API (/search, /products...) des paramètres (?q=ordinateur tout-en-un)
 >* Ajoute ce filtre Je t'expliquerai plus tard pourquoi
 >```
->  	mutate {
->  		split => ["[query_params][q]", "%20"]
->  	}
+>grok {
+>     match => { "request" => "%{URIPATH:api}(?:%{URIPARAM:uriparam})?" }
+>}
 >```
 >Bravo pour ton travail tiens-moi au courant de ton avancement.
 
