@@ -1,0 +1,92 @@
+to add the mappin open sense (http://localhost:5601/app/sense) and put the content of logstash-mapping.json to the required index. Index must be deleted before adding mapping.
+
+For example:
+DELETE logstash-2016.10.13
+PUT logstash-2016.10.13
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "french_elision": {
+          "type": "elision",
+          "articles": [
+            "l",
+            "m",
+            "t",
+            "qu",
+            "n",
+            "s",
+            "j",
+            "d",
+            "c",
+            "jusqu",
+            "quoiqu",
+            "lorsqu",
+            "puisqu"
+          ]
+        },
+        "french_stop": {
+          "type": "stop",
+          "stopwords": "_french_"
+        },
+        "french_stemmer": {
+          "type": "stemmer",
+          "language": "light_french"
+        },
+        "my_stop": {
+          "type": "stop",
+          "stopwords": [
+            "orange",
+            "notamment",
+            "a"
+          ]
+        },
+        "unify_words":{
+            "type": "word_delimiter",
+            "catenate_words":true,
+            "generate_word_parts":false,
+            "generate_number_parts":false,
+            "catenate_numbers": true,
+            "preserve_original":false
+          },
+          "my_snow": {
+            "type": "snowball",
+            "language":"french"
+          }
+
+      },
+      "analyzer": {
+        "mon_super_analyzeur": {
+          "tokenizer": "whitespace",
+          "filter": [
+            "unify_words",
+            "lowercase",
+            "french_elision",
+            "french_stop",
+            "my_stop",
+            "asciifolding",
+            "french_stemmer"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "logs": {
+      "properties" : {
+        "query_params": {
+          "type":"object",
+          "properties": {
+            "q": {
+              "type": "string",
+              "analyzer": "mon_super_analyzeur"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+You can also use template mapping see https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-templates.html
