@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "all-results",
+    "_type": "search",
+    "_source": {
+      "title": "all results",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "timestamp",
+        "verb",
+        "response",
+        "request",
+        "geoip.country_code2"
+      ],
+      "sort": [
+        "timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  },
+  {
+    "_id": "The-requests",
+    "_type": "search",
+    "_source": {
+      "title": "The requests",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "verb",
+        "api",
+        "query_params.q",
+        "response",
+        "geoip.country_name"
+      ],
+      "sort": [
+        "timestamp",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"logstash-*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[],\"highlight\":{\"pre_tags\":[\"@kibana-highlighted-field@\"],\"post_tags\":[\"@/kibana-highlighted-field@\"],\"fields\":{\"*\":{}},\"require_field_match\":false,\"fragment_size\":2147483647}}"
+      }
+    }
+  }
+]

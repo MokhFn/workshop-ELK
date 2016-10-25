@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "first-dashboard",
+    "_type": "dashboard",
+    "_source": {
+      "title": "first dashboard",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":5,\"id\":\"http-verbs\",\"panelIndex\":1,\"row\":6,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":9,\"id\":\"top-api-called\",\"panelIndex\":3,\"row\":6,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":1,\"id\":\"top-keywords\",\"panelIndex\":4,\"row\":9,\"size_x\":5,\"size_y\":8,\"type\":\"visualization\"},{\"col\":7,\"id\":\"RequestLocation\",\"panelIndex\":6,\"row\":1,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"HTTP-code-in-time\",\"panelIndex\":7,\"row\":1,\"size_x\":6,\"size_y\":5,\"type\":\"visualization\"},{\"col\":1,\"id\":\"code-http-by-api\",\"panelIndex\":8,\"row\":6,\"size_x\":4,\"size_y\":3,\"type\":\"visualization\"},{\"col\":6,\"columns\":[\"verb\",\"api\",\"query_params.q\",\"response\",\"geoip.country_name\"],\"id\":\"The-requests\",\"panelIndex\":9,\"row\":9,\"size_x\":7,\"size_y\":8,\"sort\":[\"timestamp\",\"desc\"],\"type\":\"search\"},{\"id\":\"nb-requests-in-time\",\"type\":\"visualization\",\"panelIndex\":10,\"size_x\":12,\"size_y\":4,\"col\":1,\"row\":17}]",
+      "optionsJSON": "{\"darkTheme\":false}",
+      "uiStateJSON": "{}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "2016-09-01T02:23:07.911Z",
+      "timeFrom": "2016-05-31T22:00:00.000Z",
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+      }
+    }
+  }
+]
