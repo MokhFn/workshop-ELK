@@ -44,7 +44,7 @@ bin\kibana
 
 >Tu verras c'est plus joli que l'interface d'Elasticsearch mais pour l'instant il n'y a rien dedans à toi d'y mettre des données !
 >
->sense doit être installer, ça te permettra de requêter facilement elasticsearch. Il est accessible à l'adresse : http://localhost:5601/app/sense 
+>Il existe un outil pour requêter facilement elasticsearch. Il est accessible à l'adresse : http://localhost:5601/app/kibana#/dev_tools/console?_g=() 
 >
 >Une fois que ça s'est fait tu dois créer un fichier de configuration pour logstash (dans C:\Program Files\Elastic\logstash-all-plugins-2.4.0 par exemple), en général on l'appel logstash.conf et tu mets dedans quelque chose qui ressemble à ça :
 >```
@@ -92,7 +92,7 @@ bin\kibana
 
 >PS2 : Si tu veux juste voir à quoi vont ressembler les données sans forcément les injecter dans Elasticsearch tu peux commenter les lignes elasticsearch.
 
->PS3 : Entre 2 injections, pour tout remettre à 0, tu peux utiliser sense pour supprimer l'index, mets aussi à jour l'index kibana dans les settings.
+>PS3 : Entre 2 injections, pour tout remettre à 0, tu peux utiliser devtools pour supprimer l'index, pense aussi à mettre à jour l'index kibana dans "management -> index patterns".
 ```
 DELETE logstash-*
 ```
@@ -174,12 +174,12 @@ Vient le moment des questions...
 
 Dépité tu repars pensant ajouter des filtres dans logstash pour enlever tous ces mots lors de l'injection des données tu penses pouvoir t'en sortir mais bon ça à pas l'air simple... et puis dans le bus en rentrant chez toi tu entends une discussion de deux chercheurs du moteur de recherche de Google qui discutent de "mapping" avec des "analyzers", "tokenizers" et de "token filter" tu te dis que tu es déjà tombé sur ce genre de choses dans la doc elasticsearch notamment dans le livre Elasticsearch: The definitive guide section "Dealing with human language" https://www.elastic.co/guide/en/elasticsearch/guide/current/languages.html#languages et la partie analysis de la doc https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis.html 
 
-Tu te dis que la première chose à faire c'est de regarder le mapping actuel de tes données. Pour celà il suffit d'ouvrir sense http://localhost:5601/app/sense et de faire la requête suivante :
+Tu te dis que la première chose à faire c'est de regarder le mapping actuel de tes données. Pour celà il suffit d'ouvrir DevTools http://localhost:5601/app/kibana#/dev_tools/console?_g=() et de faire la requête suivante :
 ```
 GET logstash-*/_mapping
 ```
 
-Wow ! ça n'a pas l'air super simple tout ça, tu te dis que tu regarderas plus tard ce que signifie tout ça (après l'atelier avec les animateurs par exemple) pour l'instant ce qui t'intéresse c'est de changer le mapping de "query_params.q". Commençons par simplifier le mapping que logstash a créé. Tape ceci dans sense
+Wow ! ça n'a pas l'air super simple tout ça, tu te dis que tu regarderas plus tard ce que signifie tout ça (après l'atelier avec les animateurs par exemple) pour l'instant ce qui t'intéresse c'est de changer le mapping de "query_params.q". Commençons par simplifier le mapping que logstash a créé. Tape ceci dans DevTools
 ```
 POST logstash-2016.10.19/logs/_mapping
 {
@@ -230,7 +230,7 @@ ainsi lorsque l'on cherche le mot "bonjour" le moteur de recherche n'a pas à pa
 
 ### Retour à la réalité 
 
-Il faut donc à chaque fois que l'on souhaite modifier le mapping il faut dans sense :
+Il faut donc à chaque fois que l'on souhaite modifier le mapping il faut dans devTools :
 * supprimer l'index Elasticsearch
 * créer l'index 
 * créer le mapping 
@@ -265,7 +265,7 @@ PUT logstash-2016.10.19/
 //TODO bin\logstash -f logstash.conf
 ```
 
-Tu peux déjà commencer à tester comment Elasticsearch indexe les données avec un analyzeur pour celà écrire dans sense : 
+Tu peux déjà commencer à tester comment Elasticsearch indexe les données avec un analyzeur pour celà écrire dans devTools : 
 ```
 GET /_analyze
 {
